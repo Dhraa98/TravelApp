@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TravelApp</string>
+    <string name="favorites">Favourites</string>
+    <string name="places">Places</string>
+</resources>

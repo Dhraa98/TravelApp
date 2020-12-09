@@ -1,0 +1,20 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.Reply.DayNight" parent="AppTheme" />
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/reply_blue_800</item>
+        <item name="colorSecondary">@color/rating_color</item>
+        <item name="android:colorBackground">@color/reply_blue_800</item>
+        <item name="colorError">@color/my_app_error_color</item>
+        <item name="materialCardViewStyle">@style/AppCard</item>
+
+
+
+    </style>
+
+    <style name="AppCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">8dp</item>
+    </style>
+
+</resources>

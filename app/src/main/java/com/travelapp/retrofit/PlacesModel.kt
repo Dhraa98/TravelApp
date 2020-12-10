@@ -44,6 +44,10 @@ class PlacesModel : Serializable {
     var rows: List<Row>? = null
 
     class Row : Serializable{
+        @SerializedName("isFavourite")
+        @Expose
+        var isFavourite: Boolean = false
+
         @SerializedName("serviceType")
         @Expose
         var serviceType: String? = null

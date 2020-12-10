@@ -50,6 +50,7 @@ class FavouritesFragment : Fragment() {
         manager = LinearLayoutManager(activity)
         binding.rvDbList.adapter = adapter
         binding.rvDbList.layoutManager = manager
+        adapter.notifyDataSetChanged()
     }
 
 

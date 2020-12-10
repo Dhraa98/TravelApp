@@ -16,6 +16,7 @@ object BindingAdapters {
 
     var PLACES_KEY : String=""
      var dataList: MutableList<TodoEntity> = mutableListOf()
+    val places: List<PlacesModel.Row> = listOf()
     @JvmStatic
     @BindingAdapter("imageUrl")
     fun setImageUrl(imageView: ImageView, url: String?) {

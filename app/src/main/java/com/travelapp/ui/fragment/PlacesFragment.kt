@@ -54,8 +54,8 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
 
             adapter = PlacesAdaper(places,  this)
             manager = LinearLayoutManager(activity)
-            rvPlaces.adapter = adapter
-            rvPlaces.layoutManager = manager
+            binding.rvPlaces.adapter = adapter
+            binding.rvPlaces.layoutManager = manager
         })
     }
 

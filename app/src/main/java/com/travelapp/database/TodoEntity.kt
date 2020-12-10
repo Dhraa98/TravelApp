@@ -28,6 +28,9 @@ class TodoEntity {
     @ColumnInfo(name = "imagePath")
     var imagePath : String=""
 
+    @ColumnInfo(name = "isFav")
+    var isFav : Boolean = false
+
 
 
 

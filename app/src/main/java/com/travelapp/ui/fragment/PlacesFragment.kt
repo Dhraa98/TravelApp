@@ -1,5 +1,6 @@
 package com.travelapp.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,17 +16,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.travelapp.R
 import com.travelapp.databinding.FragmentPlacesBinding
 import com.travelapp.retrofit.PlacesModel
+import com.travelapp.ui.PlaceDetailActivity
 import com.travelapp.ui.adapter.PlacesAdaper
 import com.travelapp.ui.viewmodel.MainActivityViewModel
+import com.travelapp.utils.BindingAdapters.PLACES_KEY
+import com.travelapp.utils.BindingAdapters.dataList
+import kotlinx.android.synthetic.main.fragment_favourites.*
 import kotlinx.android.synthetic.main.fragment_places.*
 import java.util.EnumSet.of
 
-class PlacesFragment : Fragment() {
+class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
     private lateinit var binding: FragmentPlacesBinding
     private lateinit var viewModel: MainActivityViewModel
     private lateinit var adapter: PlacesAdaper
     private lateinit var manager: RecyclerView.LayoutManager
-    var placesList: List<PlacesModel> = mutableListOf()
+    var placesListRow: List<PlacesModel> = mutableListOf()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,8 +41,9 @@ class PlacesFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         binding.lifecycleOwner = activity
         binding.viewmodel = viewModel
-        return binding.root
         initControls()
+        return binding.root
+
     }
 
     private fun initControls() {
@@ -46,10 +52,17 @@ class PlacesFragment : Fragment() {
             val places: List<PlacesModel.Row> =
                 it!!.rows!!
 
-            adapter = PlacesAdaper(places)
+            adapter = PlacesAdaper(places,  this)
             manager = LinearLayoutManager(activity)
             rvPlaces.adapter = adapter
             rvPlaces.layoutManager = manager
         })
+    }
+
+    override fun onProductItemClicked(places: PlacesModel.Row) {
+        val intent = Intent(activity!!, PlaceDetailActivity::class.java)
+        intent.putExtra(PLACES_KEY, places)
+        startActivity(intent)
+
     }
 }

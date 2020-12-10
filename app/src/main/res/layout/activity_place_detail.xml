@@ -3,6 +3,9 @@
 
     <data>
 
+        <variable
+            name="placesData"
+            type="com.travelapp.retrofit.PlacesModel.Row" />
     </data>
 
     <LinearLayout
@@ -12,14 +15,22 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="230dp"
-            android:padding="5dp">
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/ivLocation"
+                imageUrl="@{placesData.images.get(0).imagePath}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
 
             <ImageView
                 android:id="@+id/ivFav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_margin="15dp"
                 android:padding="5dp"
                 android:src="@drawable/ic_baseline_favorite_border_24" />
 
@@ -27,21 +38,92 @@
                 android:id="@+id/ivBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="15dp"
                 android:padding="5dp"
                 android:src="@drawable/ic_baseline_keyboard_backspace_24" />
 
-            <ImageView
-                android:id="@+id/ivLocation"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:id="@+id/ivLocatinText"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:padding="5dp" />
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ivLocatinText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:padding="5dp"
+                    android:text="@{placesData.listingName}"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvMinPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:padding="5dp"
+                    android:text="@{placesData.minPrice}"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvAvgRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:drawableLeft="@drawable/ic_baseline_star_24"
+                    android:padding="5dp"
+                    android:text="@{placesData.avgRating}"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:padding="5dp"
+                    android:text="@{placesData.distance}"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:padding="5dp"
+                    android:text="@{placesData.duration}"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:padding="5dp"
+                    android:text="@{placesData.activityStartDate}"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </LinearLayout>
         </RelativeLayout>
+
+
     </LinearLayout>
 </layout>

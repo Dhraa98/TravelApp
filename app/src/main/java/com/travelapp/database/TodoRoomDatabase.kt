@@ -1,4 +1,4 @@
-package com.example.todoapp.database
+package com.travelapp.database
 
 import android.content.Context
 import androidx.room.Database
@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [TodoEntity::class], version = 4)
+@Database(entities = [TodoEntity::class], version = 5)
 abstract class TodoRoomDatabase : RoomDatabase() {
     abstract fun todoDao(): TodoDao
 

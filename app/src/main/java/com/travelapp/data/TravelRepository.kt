@@ -18,7 +18,7 @@ class TravelRepository {
         progressVisibility.value = true
         var jsonObj: JsonObject = JsonObject()
         jsonObj.addProperty("pageNumber", 1)
-        jsonObj.addProperty("pageSize", 10)
+        jsonObj.addProperty("pageSize", 100)
 
         var finalJson: JsonObject = JsonObject()
         finalJson.addProperty("lat", "37.7749295")

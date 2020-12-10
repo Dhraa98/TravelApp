@@ -1,4 +1,4 @@
-package com.example.todoapp.database
+package com.travelapp.database
 
 import android.graphics.Bitmap
 import androidx.room.ColumnInfo

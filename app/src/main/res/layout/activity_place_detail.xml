@@ -20,6 +20,7 @@
 
             <ImageView
                 android:id="@+id/ivLocation"
+                android:transitionName="robot"
                 imageUrl="@{placesData.images.get(0).imagePath}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

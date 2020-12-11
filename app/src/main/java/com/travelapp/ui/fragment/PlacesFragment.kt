@@ -56,22 +56,23 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
             binding.rvPlaces.layoutManager = manager
             runAnimationAgain()
         })
-       /* binding.rvPlaces.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+        /* binding.rvPlaces.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
 
-                super.onScrollStateChanged(recyclerView, newState)
-            }
-        })*/
+                 super.onScrollStateChanged(recyclerView, newState)
+             }
+         })*/
     }
 
     override fun onProductItemClicked(places: PlacesModel.Row) {
         val intent = Intent(activity!!, PlaceDetailActivity::class.java)
         intent.putExtra(PLACES_KEY, places)
-       // startActivity(intent)
-        /*val options = ActivityOptions
-            .makeSceneTransitionAnimation(activity!!,, "robot")*/
+        // startActivity(intent)
+        val options = ActivityOptions
+            .makeSceneTransitionAnimation(activity!!, rvPlaces, "robot")
         // start the new activity
-        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity!!).toBundle())
+        // startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity!!).toBundle())
+        startActivity(intent, options.toBundle())
 
 
     }

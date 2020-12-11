@@ -49,6 +49,7 @@
                     android:layout_weight="6">
 
                     <ImageView
+                        android:transitionName="robot"
                         android:id="@+id/ivLocation"
                         imageUrl="@{placesModel.images.get(0).imagePath }"
                         android:layout_width="match_parent"

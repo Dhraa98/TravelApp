@@ -7,6 +7,9 @@
         <item name="colorSecondary">@color/rating_color</item>
         <item name="android:colorBackground">@color/reply_blue_800</item>
         <item name="colorError">@color/my_app_error_color</item>
+        <item name="android:windowContentTransitions">true</item>
+
+
         <item name="materialCardViewStyle">@style/AppCard</item>
 
 

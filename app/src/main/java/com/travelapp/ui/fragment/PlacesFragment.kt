@@ -1,5 +1,6 @@
 package com.travelapp.ui.fragment
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.travelapp.ui.PlaceDetailActivity
 import com.travelapp.ui.adapter.PlacesAdaper
 import com.travelapp.ui.viewmodel.MainActivityViewModel
 import com.travelapp.utils.BindingAdapters.PLACES_KEY
+import kotlinx.android.synthetic.main.fragment_places.*
 
 
 class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
@@ -65,7 +67,12 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
     override fun onProductItemClicked(places: PlacesModel.Row) {
         val intent = Intent(activity!!, PlaceDetailActivity::class.java)
         intent.putExtra(PLACES_KEY, places)
-        startActivity(intent)
+       // startActivity(intent)
+        /*val options = ActivityOptions
+            .makeSceneTransitionAnimation(activity!!,, "robot")*/
+        // start the new activity
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity!!).toBundle())
+
 
     }
 

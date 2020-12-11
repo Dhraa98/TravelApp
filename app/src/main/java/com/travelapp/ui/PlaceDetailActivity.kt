@@ -69,7 +69,7 @@ class PlaceDetailActivity : AppCompatActivity() {
                 );
             }
         }
-        ivFav.setOnClickListener {
+        binding.ivFav.setOnClickListener {
             if (favouriteItem) {
                 deleteAll()
             } else {
@@ -77,10 +77,11 @@ class PlaceDetailActivity : AppCompatActivity() {
             }
 
         }
-        ivBack.setOnClickListener {
+        binding.ivBack.setOnClickListener {
+            binding.imgAnimator.clearAnimation();
             onBackPressed()
         }
-        imgAnimator.setOnClickListener {
+        binding.imgAnimator.setOnClickListener {
             binding.imgAnimator.clearAnimation();
             binding.imgAnimator.visibility = View.GONE
             binding.imgAnimator.setBackgroundColor(resources.getColor(R.color.transparent))

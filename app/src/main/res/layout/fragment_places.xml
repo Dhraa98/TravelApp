@@ -19,6 +19,7 @@
             android:id="@+id/rvPlaces"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:layoutAnimation="@anim/layout_animation_right_to_left" />
 
         <com.facebook.shimmer.ShimmerFrameLayout

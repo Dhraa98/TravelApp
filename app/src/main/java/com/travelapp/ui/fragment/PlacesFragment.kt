@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStores.of
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.travelapp.R
@@ -20,10 +19,7 @@ import com.travelapp.ui.PlaceDetailActivity
 import com.travelapp.ui.adapter.PlacesAdaper
 import com.travelapp.ui.viewmodel.MainActivityViewModel
 import com.travelapp.utils.BindingAdapters.PLACES_KEY
-import com.travelapp.utils.BindingAdapters.dataList
-import kotlinx.android.synthetic.main.fragment_favourites.*
-import kotlinx.android.synthetic.main.fragment_places.*
-import java.util.EnumSet.of
+
 
 class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
     private lateinit var binding: FragmentPlacesBinding
@@ -52,11 +48,18 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
             val places: List<PlacesModel.Row> =
                 it!!.rows!!
 
-            adapter = PlacesAdaper(places,  this)
+            adapter = PlacesAdaper(places, this)
             manager = LinearLayoutManager(activity)
             binding.rvPlaces.adapter = adapter
             binding.rvPlaces.layoutManager = manager
+            runAnimationAgain()
         })
+       /* binding.rvPlaces.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+        })*/
     }
 
     override fun onProductItemClicked(places: PlacesModel.Row) {
@@ -64,5 +67,13 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
         intent.putExtra(PLACES_KEY, places)
         startActivity(intent)
 
+    }
+
+    private fun runAnimationAgain() {
+        val controller =
+            AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_right_to_left)
+        binding.rvPlaces.setLayoutAnimation(controller)
+        binding.rvPlaces.adapter!!.notifyDataSetChanged()
+        binding.rvPlaces.scheduleLayoutAnimation()
     }
 }

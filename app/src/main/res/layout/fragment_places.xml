@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -17,13 +18,23 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPlaces"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layoutAnimation="@anim/layout_animation_right_to_left" />
 
-        <ProgressBar
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:visibility="@{viewmodel.progressVisibility ? View.VISIBLE : View.GONE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/shimmer_layout" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+       <!-- <ProgressBar
             android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:visibility="@{viewmodel.progressVisibility ? View.VISIBLE : View.GONE}" />
+            android:visibility="@{viewmodel.progressVisibility ? View.VISIBLE : View.GONE}" />-->
     </RelativeLayout>
 </layout>

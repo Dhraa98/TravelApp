@@ -2,7 +2,11 @@ package com.travelapp.ui
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.LinearInterpolator
+import android.view.animation.TranslateAnimation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -14,6 +18,7 @@ import com.travelapp.retrofit.PlacesModel
 import com.travelapp.utils.BindingAdapters.PLACES_KEY
 import com.travelapp.utils.BindingAdapters.dataList
 import kotlinx.android.synthetic.main.activity_place_detail.*
+
 
 class PlaceDetailActivity : AppCompatActivity() {
     private val TAG = "PlaceDetailActivity"
@@ -43,6 +48,7 @@ class PlaceDetailActivity : AppCompatActivity() {
 
 
         }
+        slideUp()
 
         /*if (favouriteItem) {
             binding.placesData!!.isFavourite = false
@@ -73,6 +79,19 @@ class PlaceDetailActivity : AppCompatActivity() {
         }
         ivBack.setOnClickListener {
             onBackPressed()
+        }
+        imgAnimator.setOnClickListener {
+            binding.imgAnimator.clearAnimation();
+            binding.imgAnimator.visibility = View.GONE
+            binding.imgAnimator.setBackgroundColor(resources.getColor(R.color.transparent))
+            val slideUpAnimation = AnimationUtils.loadAnimation(
+                getApplicationContext(),
+                R.anim.slide_up_animation
+            );
+
+            binding.lnAnimator.startAnimation(slideUpAnimation)
+
+            binding.lnAnimator.visibility = (View.VISIBLE)
         }
 
     }
@@ -149,6 +168,15 @@ class PlaceDetailActivity : AppCompatActivity() {
 
          }
  */
+
+    }
+
+    // slide the view from below itself to the current position
+    fun slideUp() {
+        binding.imgAnimator.visibility = View.VISIBLE
+        val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.bounce_animation)
+        binding.imgAnimator.startAnimation(bounceAnimation)
+
 
     }
 }

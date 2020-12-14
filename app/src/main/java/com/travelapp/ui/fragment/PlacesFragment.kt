@@ -2,11 +2,13 @@ package com.travelapp.ui.fragment
 
 import android.app.ActivityOptions
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.transition.Explode
+import android.transition.Slide
+import android.view.*
 import android.view.animation.AnimationUtils
+import android.view.animation.DecelerateInterpolator
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -71,8 +73,11 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
         val options = ActivityOptions
             .makeSceneTransitionAnimation(activity!!, rvPlaces, "robot")
         // start the new activity
-        // startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity!!).toBundle())
+        //startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity!!).toBundle())
         startActivity(intent, options.toBundle())
+       /* startActivity(intent)
+        activity!!.overridePendingTransition(0,0)*/
+
 
 
     }
@@ -84,4 +89,6 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
         binding.rvPlaces.adapter!!.notifyDataSetChanged()
         binding.rvPlaces.scheduleLayoutAnimation()
     }
+
+
 }

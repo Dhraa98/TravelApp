@@ -5,6 +5,8 @@ import android.animation.ObjectAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.travelapp.database.TodoEntity
 import com.travelapp.databinding.ItemAdapterListBinding
@@ -15,6 +17,7 @@ class PlacesAdaper(
     private val mListener: ProductItemClickListener
 ) :
     RecyclerView.Adapter<PlacesAdaper.ViewHolder>() {
+    lateinit var img : ImageView
 
     class ViewHolder(var binding: ItemAdapterListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(placesList: PlacesModel.Row, listener: ProductItemClickListener) {
@@ -22,6 +25,7 @@ class PlacesAdaper(
             binding.placesModel = placesList
             binding.itemClick = listener
             binding.executePendingBindings()
+
 
 
         }

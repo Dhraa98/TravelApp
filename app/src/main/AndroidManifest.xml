@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.PlaceDetailActivity"/>
+        <activity android:name=".ui.DemoActivity"/>
     </application>
 
 </manifest>

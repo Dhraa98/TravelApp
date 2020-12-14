@@ -1,5 +1,7 @@
 package com.travelapp.ui
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -18,6 +20,7 @@ import com.travelapp.retrofit.PlacesModel
 import com.travelapp.utils.BindingAdapters.PLACES_KEY
 import com.travelapp.utils.BindingAdapters.dataList
 import kotlinx.android.synthetic.main.activity_place_detail.*
+import kotlinx.android.synthetic.main.fragment_places.*
 
 
 class PlaceDetailActivity : AppCompatActivity() {
@@ -29,6 +32,7 @@ class PlaceDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_place_detail)
         initControls()
     }
@@ -77,24 +81,34 @@ class PlaceDetailActivity : AppCompatActivity() {
             }
 
         }
+        binding.ivLocation.setOnClickListener {
+            val intent = Intent(this, DemoActivity::class.java)
+            // startActivity(intent)
+            val options = ActivityOptions
+                .makeSceneTransitionAnimation(this, ivBack, "robot")
+            // start the new activity
+            //startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity!!).toBundle())
+            startActivity(intent, options.toBundle())
+            ;
+        }
         binding.ivBack.setOnClickListener {
-            binding.imgAnimator.clearAnimation();
+            ///   binding.imgAnimator.clearAnimation();
             onBackPressed()
         }
-        binding.imgAnimator.setOnClickListener {
-            binding.imgAnimator.clearAnimation();
-            binding.imgAnimator.visibility = View.GONE
-            binding.imgAnimator.setBackgroundColor(resources.getColor(R.color.transparent))
-            val slideUpAnimation = AnimationUtils.loadAnimation(
-                getApplicationContext(),
-                R.anim.slide_up_animation
-            );
+        /* binding.imgAnimator.setOnClickListener {
+             binding.imgAnimator.clearAnimation();
+             binding.imgAnimator.visibility = View.GONE
+             binding.imgAnimator.setBackgroundColor(resources.getColor(R.color.transparent))
+             val slideUpAnimation = AnimationUtils.loadAnimation(
+                 getApplicationContext(),
+                 R.anim.slide_up_animation
+             );
 
-            binding.lnAnimator.startAnimation(slideUpAnimation)
+             binding.lnAnimator.startAnimation(slideUpAnimation)
 
-            binding.lnAnimator.visibility = (View.VISIBLE)
-        }
-
+             binding.lnAnimator.visibility = (View.VISIBLE)
+         }
+ */
     }
 
     private fun deleteAll() {
@@ -174,10 +188,17 @@ class PlaceDetailActivity : AppCompatActivity() {
 
     // slide the view from below itself to the current position
     fun slideUp() {
-        binding.imgAnimator.visibility = View.VISIBLE
+        /*binding.imgAnimator.visibility = View.VISIBLE
         val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.bounce_animation)
-        binding.imgAnimator.startAnimation(bounceAnimation)
+        binding.imgAnimator.startAnimation(bounceAnimation)*/
+      /*  val slideUpAnimation = AnimationUtils.loadAnimation(
+            getApplicationContext(),
+            R.anim.slide_up_animation
+        );
 
+        binding.lnAnimator.startAnimation(slideUpAnimation)
+
+        binding.lnAnimator.visibility = (View.VISIBLE)*/
 
     }
 }

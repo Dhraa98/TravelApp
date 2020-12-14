@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:mrl_rippleAlpha="0.2"
+        android:transitionName="robot"
         app:mrl_rippleColor="#585858"
         app:mrl_rippleHover="true"
         app:mrl_rippleOverlay="true">
@@ -49,8 +50,8 @@
                     android:layout_weight="6">
 
                     <ImageView
-                        android:transitionName="robot"
                         android:id="@+id/ivLocation"
+
                         imageUrl="@{placesModel.images.get(0).imagePath }"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
@@ -99,5 +100,6 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+        <!--    android:transitionName="robot"-->
     </com.balysv.materialripple.MaterialRippleLayout>
 </layout>

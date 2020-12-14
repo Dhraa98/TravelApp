@@ -29,7 +29,16 @@ class PlaceDetailActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+        getWindow().setAllowEnterTransitionOverlap(false);
+        getWindow().setAllowReturnTransitionOverlap(false);
 
+
+        //getWindow().setSharedElementEnterTransition(enterTransition());
+        //getWindow().setSharedElementReturnTransition(returnTransition());
+        getWindow().setSharedElementEnterTransition(null);
+        getWindow().setSharedElementReturnTransition(null);
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_place_detail)

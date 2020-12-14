@@ -7,4 +7,8 @@
     <color name="reply_blue_800">#ffffff</color>
     <color name="black">#000000</color>
     <color name="my_app_error_color">#C7281D</color>
+    <color name="background">#FAFAFA</color>
+
+    <color name="img_color">#000000</color>
+
 </resources>

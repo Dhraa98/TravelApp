@@ -57,7 +57,7 @@
                     android:layout_above="@+id/tvAvgRating"
                     android:padding="5dp"
                     android:text="@{placesData.listingName}"
-                    android:textColor="@color/black"
+                    android:textColor="@color/txt_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -70,7 +70,7 @@
                     android:drawableLeft="@drawable/ic_baseline_star_24"
                     android:padding="5dp"
                     android:text="@{placesData.avgRating}"
-                    android:textColor="@color/black"
+                    android:textColor="@color/txt_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </RelativeLayout>
@@ -92,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Per Night "
-                        android:textColor="@color/black"
+                        android:textColor="@color/txt_color"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -103,7 +103,7 @@
                         android:layout_alignParentRight="true"
                         android:padding="5dp"
                         android:text="@{placesData.minPrice}"
-                        android:textColor="@color/black"
+                        android:textColor="@color/txt_color"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
@@ -123,7 +123,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hotel information"
-                        android:textColor="@color/black"
+                        android:textColor="@color/txt_color"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -140,7 +140,8 @@
                             android:drawableLeft="@drawable/breakfast"
                             android:drawablePadding="5dp"
                             android:text="Breakfast"
-                            android:textColor="@color/black"
+                            android:drawableTint="@color/tdetail_color"
+                            android:textColor="@color/txt_color"
                             android:textSize="18dp" />
 
                         <TextView
@@ -150,7 +151,8 @@
                             android:text="Parking"
                             android:drawableLeft="@drawable/parked_car"
                             android:drawablePadding="5dp"
-                            android:textColor="@color/black"
+                            android:drawableTint="@color/tdetail_color"
+                            android:textColor="@color/txt_color"
                             android:textSize="18dp" />
 
                         <TextView
@@ -158,9 +160,10 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Drinking"
+                            android:drawableTint="@color/tdetail_color"
                             android:drawableLeft="@drawable/cheers"
                             android:drawablePadding="5dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/txt_color"
                             android:textSize="18dp" />
 
                     </LinearLayout>
@@ -178,7 +181,8 @@
                             android:drawableLeft="@drawable/wifi"
                             android:drawablePadding="5dp"
                             android:text="Free wifi"
-                            android:textColor="@color/black"
+                            android:drawableTint="@color/tdetail_color"
+                            android:textColor="@color/txt_color"
                             android:textSize="18dp" />
 
                         <TextView
@@ -186,19 +190,21 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Pets"
+                            android:drawableTint="@color/tdetail_color"
                             android:drawableLeft="@drawable/pawprint"
                             android:drawablePadding="5dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/txt_color"
                             android:textSize="18dp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:drawableTint="@color/tdetail_color"
                             android:text="Wifi"
                             android:drawableLeft="@drawable/wifi"
                             android:drawablePadding="5dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/txt_color"
                             android:textSize="18dp" />
 
                     </LinearLayout>
@@ -216,7 +222,7 @@
                     android:gravity="center_vertical"
                     android:padding="10dp"
                     android:text="@string/txt"
-                    android:textColor="@color/black"
+                    android:textColor="@color/txt_color"
                     android:textSize="18sp" />
 
                 <TextView

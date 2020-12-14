@@ -9,6 +9,8 @@
     <color name="my_app_error_color">#C7281D</color>
     <color name="background">#FAFAFA</color>
     <color name="img_color">#000000</color>
+    <color name="txt_color">#ffffff</color>
+    <color name="tdetail_color">#ffffff</color>
 
 
 

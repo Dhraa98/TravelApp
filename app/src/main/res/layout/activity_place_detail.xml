@@ -11,26 +11,25 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <RelativeLayout
-                android:layout_marginBottom="-10dp"
                 android:id="@+id/rlMain"
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
+                android:layout_height="250dp"
+                android:layout_marginBottom="-10dp">
 
                 <ImageView
                     android:id="@+id/ivLocation"
                     imageUrl="@{placesData.images.get(0).imagePath}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:transitionName="robot"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    android:transitionName="robot" />
 
                 <ImageView
                     android:id="@+id/ivFav"
@@ -38,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_margin="15dp"
-                    android:background="@color/colorAccent"
+                    android:background="@drawable/green_bg"
                     android:padding="5dp"
                     android:src="@drawable/ic_baseline_favorite_border_24" />
 
@@ -67,20 +66,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
                     android:drawableLeft="@drawable/ic_baseline_star_24"
                     android:padding="5dp"
                     android:text="@{placesData.avgRating}"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:layout_marginBottom="10dp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/lnDetails"
-                android:layout_below="@+id/rlMain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/rlMain"
                 android:background="@drawable/detail_bg"
                 android:orientation="vertical">
 
@@ -138,6 +137,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:drawableLeft="@drawable/breakfast"
+                            android:drawablePadding="5dp"
                             android:text="Breakfast"
                             android:textColor="@color/black"
                             android:textSize="18dp" />
@@ -147,6 +148,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Parking"
+                            android:drawableLeft="@drawable/parked_car"
+                            android:drawablePadding="5dp"
                             android:textColor="@color/black"
                             android:textSize="18dp" />
 
@@ -155,6 +158,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Drinking"
+                            android:drawableLeft="@drawable/cheers"
+                            android:drawablePadding="5dp"
                             android:textColor="@color/black"
                             android:textSize="18dp" />
 
@@ -170,6 +175,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:drawableLeft="@drawable/wifi"
+                            android:drawablePadding="5dp"
                             android:text="Free wifi"
                             android:textColor="@color/black"
                             android:textSize="18dp" />
@@ -179,6 +186,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Pets"
+                            android:drawableLeft="@drawable/pawprint"
+                            android:drawablePadding="5dp"
                             android:textColor="@color/black"
                             android:textSize="18dp" />
 
@@ -187,6 +196,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Wifi"
+                            android:drawableLeft="@drawable/wifi"
+                            android:drawablePadding="5dp"
                             android:textColor="@color/black"
                             android:textSize="18dp" />
 

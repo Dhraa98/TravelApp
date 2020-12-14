@@ -2,13 +2,12 @@ package com.travelapp.ui
 
 import android.app.ActivityOptions
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.transition.Explode
+import android.transition.Slide
 import android.util.Log
-import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.view.animation.LinearInterpolator
-import android.view.animation.TranslateAnimation
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -20,7 +19,6 @@ import com.travelapp.retrofit.PlacesModel
 import com.travelapp.utils.BindingAdapters.PLACES_KEY
 import com.travelapp.utils.BindingAdapters.dataList
 import kotlinx.android.synthetic.main.activity_place_detail.*
-import kotlinx.android.synthetic.main.fragment_places.*
 
 
 class PlaceDetailActivity : AppCompatActivity() {
@@ -31,6 +29,7 @@ class PlaceDetailActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_place_detail)

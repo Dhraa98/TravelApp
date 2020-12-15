@@ -1,18 +1,18 @@
 package com.travelapp.ui
 
 import android.content.res.Resources
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import com.travelapp.R
 import com.travelapp.databinding.ActivityMainBinding
-import com.travelapp.ui.fragment.FavouritesFragment
-import com.travelapp.ui.fragment.PlacesFragment
-import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -33,17 +33,19 @@ class MainActivity : AppCompatActivity() {
         // Set up Action Bar
         val navController = host.navController
 
+
+        NavigationUI.setupWithNavController(binding.navigation,navController)
+
+
         appBarConfiguration = AppBarConfiguration(navController.graph)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            val dest: String = try {
-                resources.getResourceName(destination.id)
-            } catch (e: Resources.NotFoundException) {
-                Integer.toString(destination.id)
+            if(destination.id==R.id.page_1){
+                binding.navigation.visibility=View.VISIBLE
+            }else if(destination.id==R.id.page_2){
+                binding.navigation.visibility=View.VISIBLE
+            }else{
+                binding.navigation.visibility=View.GONE
             }
-
-            Toast.makeText(this@MainActivity, "Navigated to $dest",
-                Toast.LENGTH_SHORT).show()
-            Log.d("NavigationActivity", "Navigated to $dest")
         }
         /*var placesFragment: PlacesFragment = PlacesFragment()
         supportFragmentManager.beginTransaction()

@@ -1,8 +1,13 @@
 package com.travelapp.ui
 
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import com.travelapp.R
 import com.travelapp.databinding.ActivityMainBinding
 import com.travelapp.ui.fragment.FavouritesFragment
@@ -11,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var appBarConfiguration : AppBarConfiguration
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -21,7 +27,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun initControls() {
         binding.lifecycleOwner = this
-        var placesFragment: PlacesFragment = PlacesFragment()
+        val host: NavHostFragment = supportFragmentManager
+            .findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment? ?: return
+
+        // Set up Action Bar
+        val navController = host.navController
+
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            val dest: String = try {
+                resources.getResourceName(destination.id)
+            } catch (e: Resources.NotFoundException) {
+                Integer.toString(destination.id)
+            }
+
+            Toast.makeText(this@MainActivity, "Navigated to $dest",
+                Toast.LENGTH_SHORT).show()
+            Log.d("NavigationActivity", "Navigated to $dest")
+        }
+        /*var placesFragment: PlacesFragment = PlacesFragment()
         supportFragmentManager.beginTransaction()
             .add(R.id.frm_contain, placesFragment)
             .commit()
@@ -46,6 +70,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> false
             }
-        }
+        }*/
     }
 }

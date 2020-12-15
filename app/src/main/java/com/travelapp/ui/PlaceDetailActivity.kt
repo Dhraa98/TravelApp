@@ -7,53 +7,65 @@ import android.os.Bundle
 import android.transition.Explode
 import android.transition.Slide
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.travelapp.R
 import com.travelapp.database.TodoEntity
 import com.travelapp.database.TodoRoomDatabase
 import com.travelapp.databinding.ActivityPlaceDetailBinding
 import com.travelapp.retrofit.PlacesModel
+import com.travelapp.ui.viewmodel.MainActivityViewModel
 import com.travelapp.utils.BindingAdapters.PLACES_KEY
 import com.travelapp.utils.BindingAdapters.dataList
 import kotlinx.android.synthetic.main.activity_place_detail.*
 
 
-class PlaceDetailActivity : AppCompatActivity() {
+class PlaceDetailActivity : Fragment() {
     private val TAG = "PlaceDetailActivity"
     private lateinit var binding: ActivityPlaceDetailBinding
+
+
+    val args:PlaceDetailActivityArgs by navArgs()
     var dataList11: MutableList<TodoEntity> = mutableListOf()
     private var favouriteItem: Boolean = false
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
-        getWindow().setAllowEnterTransitionOverlap(false);
-        getWindow().setAllowReturnTransitionOverlap(false);
-
-
-        //getWindow().setSharedElementEnterTransition(enterTransition());
-        //getWindow().setSharedElementReturnTransition(returnTransition());
-        getWindow().setSharedElementEnterTransition(null);
-        getWindow().setSharedElementReturnTransition(null);
-        super.onCreate(savedInstanceState)
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_place_detail)
+        binding = DataBindingUtil.inflate(inflater, R.layout.activity_place_detail, container, false)
+        binding.lifecycleOwner = activity
         initControls()
+        return binding.root
+
     }
+
+
+
+
 
     private fun initControls() {
         binding.lifecycleOwner = this
-        val productData = intent.getSerializableExtra(PLACES_KEY)
+        val productData = requireActivity().intent.getSerializableExtra(PLACES_KEY)
 
 
-        binding.placesData = productData as PlacesModel.Row?
+       // binding.placesData = productData as PlacesModel.Row?
+        arguments?.let {
+            val safeArgs = PlaceDetailActivityArgs.fromBundle(it)
+            binding.placesData  = safeArgs.myArg
+        }
 
         dataList.clear()
-        TodoRoomDatabase.getDatabase(this).todoDao().getAll().forEach()
+        TodoRoomDatabase.getDatabase(requireContext()).todoDao().getAll().forEach()
 
         {
             dataList.addAll(listOf(it))
@@ -76,7 +88,7 @@ class PlaceDetailActivity : AppCompatActivity() {
                 favouriteItem = true
                 ivFav.setImageResource(R.drawable.ic_baseline_favorite_24)
                 ivFav.setColorFilter(
-                    ContextCompat.getColor(this, R.color.my_app_error_color),
+                    ContextCompat.getColor(requireContext(), R.color.my_app_error_color),
                     android.graphics.PorterDuff.Mode.SRC_IN
                 );
             }
@@ -89,19 +101,10 @@ class PlaceDetailActivity : AppCompatActivity() {
             }
 
         }
-        binding.ivLocation.setOnClickListener {
-            val intent = Intent(this, DemoActivity::class.java)
-            // startActivity(intent)
-            val options = ActivityOptions
-                .makeSceneTransitionAnimation(this, ivBack, "robot")
-            // start the new activity
-            //startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity!!).toBundle())
-            startActivity(intent, options.toBundle())
-            ;
-        }
+
         binding.ivBack.setOnClickListener {
             ///   binding.imgAnimator.clearAnimation();
-            onBackPressed()
+            requireActivity().onBackPressed()
         }
         /* binding.imgAnimator.setOnClickListener {
              binding.imgAnimator.clearAnimation();
@@ -124,7 +127,7 @@ class PlaceDetailActivity : AppCompatActivity() {
             Log.e(TAG, "initControls: " + dataList[i].listingName)
             if (binding.placesData!!.listingName.equals(dataList[i].listingName)) {
                 //  Toast.makeText(this, "true", Toast.LENGTH_SHORT).show()
-                TodoRoomDatabase.getDatabase(this).todoDao().delete(dataList[i])
+                TodoRoomDatabase.getDatabase(requireContext()).todoDao().delete(dataList[i])
                 favouriteItem = false
                 ivFav.setImageResource(R.drawable.ic_baseline_favorite_border_24)
 
@@ -145,14 +148,14 @@ class PlaceDetailActivity : AppCompatActivity() {
         todoEntity.minPrice = binding.tvMinPrice.text.toString()
         todoEntity.imagePath = path!!
         todoEntity.isFav = true
-        TodoRoomDatabase.getDatabase(this).todoDao().insertAll(todoEntity)
+        TodoRoomDatabase.getDatabase(requireContext()).todoDao().insertAll(todoEntity)
         dataList11.add((todoEntity))
 
 
 
         ivFav.setImageResource(R.drawable.ic_baseline_favorite_24)
         ivFav.setColorFilter(
-            ContextCompat.getColor(this, R.color.my_app_error_color),
+            ContextCompat.getColor(requireContext(), R.color.my_app_error_color),
             android.graphics.PorterDuff.Mode.SRC_IN
         );
 

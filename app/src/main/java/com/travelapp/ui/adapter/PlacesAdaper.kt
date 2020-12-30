@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.travelapp.database.TodoEntity
 import com.travelapp.databinding.ItemAdapterListBinding
-import com.travelapp.databinding.ItemAdapterLoaderBinding
+
 import com.travelapp.retrofit.PlacesModel
 import com.travelapp.ui.viewmodel.MainActivityViewModel
 import com.travelapp.utils.BindingAdapters

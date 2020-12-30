@@ -8,7 +8,10 @@ import com.travelapp.data.TravelRepository
 import com.travelapp.retrofit.PlacesModel
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
+    var pageNumber = 1
     val userRepository = TravelRepository()
     var progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
-    val userData: LiveData<PlacesModel> = userRepository.getPlaces(progressVisibility)
+    var loaderVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    fun userData() :LiveData<PlacesModel> = userRepository.getPlaces(progressVisibility,pageNumber,loaderVisibility)
 }

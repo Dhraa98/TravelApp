@@ -15,6 +15,7 @@ import com.travelapp.retrofit.PlacesModel
 object BindingAdapters {
 
     var PLACES_KEY : String=""
+    var PAGESIZE : Int=10
      var dataList: MutableList<TodoEntity> = mutableListOf()
     val places: List<PlacesModel.Row> = listOf()
     @JvmStatic

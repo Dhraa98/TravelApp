@@ -19,22 +19,27 @@
             android:id="@+id/rvPlaces"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/progress"
             android:layoutAnimation="@anim/layout_animation_right_to_left" />
 
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:visibility="@{viewmodel.progressVisibility ? View.VISIBLE : View.GONE}"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="@{viewmodel.progressVisibility ? View.VISIBLE : View.GONE}">
 
             <include layout="@layout/shimmer_layout" />
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
-       <!-- <ProgressBar
+        <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/progress"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
-            android:visibility="@{viewmodel.progressVisibility ? View.VISIBLE : View.GONE}" />-->
+            android:visibility="@{viewmodel.loaderVisibility ? View.VISIBLE : View.GONE}"
+            app:lottie_rawRes="@raw/loading"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
     </RelativeLayout>
 </layout>

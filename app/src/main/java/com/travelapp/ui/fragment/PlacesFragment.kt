@@ -3,6 +3,7 @@ package com.travelapp.ui.fragment
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
@@ -33,7 +34,8 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
     var isLoading = true
     var isLastPage = false
 
-    var placesListRow: List<PlacesModel> = mutableListOf()
+    // var places: MutableList<PlacesModel.Row> = mutableListOf()
+    var placesListRow: ArrayList<PlacesModel.Row> = ArrayList()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,25 +44,21 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_places, container, false)
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+
         binding.lifecycleOwner = activity
         binding.viewmodel = viewModel
+        manager = LinearLayoutManager(activity)
         initControls()
         return binding.root
 
     }
 
     private fun initControls() {
-        manager = LinearLayoutManager(activity)
-        viewModel.userData().observe(activity!!, Observer {
-            val places: List<PlacesModel.Row> =
-                it!!.rows!!
 
-            adapter = PlacesAdaper(places, this)
+        addObserver()
+        viewModel.userData()
 
-            binding.rvPlaces.adapter = adapter
-            binding.rvPlaces.layoutManager = manager
-            // runAnimationAgain()
-        })
+
         binding.rvPlaces.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -73,22 +71,9 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
 
                             isLoading = false
                             viewModel.pageNumber++
+                            viewModel.userData()
                             Log.e(TAG, "MATCH_PAGE_NUMBER: ${viewModel.pageNumber}")
-                            //displayUserData(PageNo)
-                            viewModel.userData().observe(activity!!, Observer {
-                                val places: List<PlacesModel.Row> =
-                                    it!!.rows!!
-                                isLoading = true
-                                if (places.size < PAGESIZE) {
-                                    isLastPage = true
-                                }
 
-                                adapter = PlacesAdaper(places, this@PlacesFragment)
-
-                                binding.rvPlaces.adapter = adapter
-                                binding.rvPlaces.layoutManager = manager
-                                // runAnimationAgain()
-                            })
 
                         }
                     }
@@ -99,25 +84,48 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
         })
 
 
-        /* binding.rvPlaces.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+    }
 
-                 super.onScrollStateChanged(recyclerView, newState)
-             }
-         })*/
+    private fun addObserver() {
+
+        viewModel.data.observe(activity!!, mObserver)
+    }
+
+    val mObserver = Observer<Any> {
+
+        isLoading = true
+
+        for (i in (it!! as PlacesModel)!!.rows!!.indices) {
+            placesListRow.add((it!! as PlacesModel).rows!![i])
+        }
+
+        if (viewModel.pageNumber == 1) {
+            initRecyclerView()
+        } else {
+            adapter!!.notifyDataSetChanged()
+        }
+
+        if ((it as PlacesModel)!!.rows!!.size < PAGESIZE) {
+            isLastPage = true
+        }
+    }
+
+    fun initRecyclerView() {
+
+        adapter = PlacesAdaper(placesListRow, this)
+
+        binding.rvPlaces.adapter = adapter
+        binding.rvPlaces.layoutManager = manager
     }
 
     override fun onProductItemClicked(places: PlacesModel.Row) {
         val intent = Intent(activity!!, PlaceDetailActivity::class.java)
         intent.putExtra(PLACES_KEY, places)
-        // startActivity(intent)
         val options = ActivityOptions
             .makeSceneTransitionAnimation(activity!!, rvPlaces, "robot")
-        // start the new activity
-        //startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity!!).toBundle())
+
         startActivity(intent, options.toBundle())
-        /* startActivity(intent)
-         activity!!.overridePendingTransition(0,0)*/
+
 
 
     }

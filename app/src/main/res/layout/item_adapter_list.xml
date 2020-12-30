@@ -2,14 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="android.view.View" />
 
+        <variable
+
+            name="viewmodel"
+            type="com.travelapp.ui.viewmodel.MainActivityViewModel" />
         <variable
             name="placesModel"
             type="com.travelapp.retrofit.PlacesModel.Row" />
 
-        <variable
-            name="placesModel1"
-            type="com.travelapp.database.TodoEntity" />
 
         <variable
             name="itemClick"
@@ -99,7 +101,19 @@
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/progress"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+               android:visibility="gone"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/loading" />
         </LinearLayout>
+       <!-- android:visibility="@{viewmodel.loaderVisibility ? View.VISIBLE : View.GONE}"-->
         <!--    android:transitionName="robot"-->
     </com.balysv.materialripple.MaterialRippleLayout>
 </layout>

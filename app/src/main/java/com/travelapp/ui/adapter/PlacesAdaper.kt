@@ -10,32 +10,36 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.travelapp.database.TodoEntity
 import com.travelapp.databinding.ItemAdapterListBinding
+import com.travelapp.databinding.ItemAdapterLoaderBinding
 import com.travelapp.retrofit.PlacesModel
+import com.travelapp.ui.viewmodel.MainActivityViewModel
+import com.travelapp.utils.BindingAdapters
 
 class PlacesAdaper(
-    val places: List<PlacesModel.Row>,
+    val places: List<PlacesModel.Row>, val viewModel: MainActivityViewModel,
     private val mListener: ProductItemClickListener
 ) :
-    RecyclerView.Adapter<PlacesAdaper.ViewHolder>() {
-    lateinit var img : ImageView
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    lateinit var img: ImageView
 
-    class ViewHolder(var binding: ItemAdapterListBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(placesList: PlacesModel.Row, listener: ProductItemClickListener) {
+    class Item(var binding: ItemAdapterListBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(placesList: PlacesModel.Row,viewModel: MainActivityViewModel, listener: ProductItemClickListener) {
 
             binding.placesModel = placesList
             binding.itemClick = listener
+            binding.viewmodel = viewModel
             binding.executePendingBindings()
-
 
 
         }
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlacesAdaper.ViewHolder {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemAdapterListBinding.inflate(inflater, parent, false)
-        return ViewHolder(binding)
+        return Item(binding)
 
     }
 
@@ -46,43 +50,26 @@ class PlacesAdaper(
 
     }
 
-  /*  override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
 
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                onAttach = false
-                super.onScrollStateChanged(recyclerView, newState)
 
-            }
-        })
-        super.onAttachedToRecyclerView(recyclerView)
-    }
-*/
-   /* fun setAnimation(itemView: View, int: Int) {
-        var i = int
-        if(!onAttach){
-
-            i = -1
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as Item).bind(places[position],viewModel, mListener)
+        if(position.equals(places.size-1)){
+            holder.binding.progress.visibility = View.VISIBLE
+        }else{
+            holder.binding.progress.visibility = View.GONE
         }
-        var not_first_item : Boolean=i==-1
-        i=i+1
-        itemView.translationX= itemView.x+400
-        itemView.alpha=(0.0f)
-        var animatorSet : AnimatorSet=AnimatorSet()
-        var animatorTransaleY : ObjectAnimator=ObjectAnimator.ofFloat(itemView,"translationX",itemView.x+400,0)
-        var animatorAlpha : ObjectAnimator=ObjectAnimator.ofFloat(itemView,"alpha",1.0f)
-        var offFloat : ObjectAnimator=ObjectAnimator.ofFloat(itemView,"alpha",0.0f).start()
-
-    }*/
-
-    override fun onBindViewHolder(holder: PlacesAdaper.ViewHolder, position: Int) =
-
-        holder.bind(places[position], mListener)
 
 
-    // holder.bind(places[position], mListener)
+    }
+
+
+// holder.bind(places[position], mListener)
 
     interface ProductItemClickListener {
         fun onProductItemClicked(places: PlacesModel.Row)
     }
+
+
+
 }

@@ -16,6 +16,7 @@ object BindingAdapters {
 
     var PLACES_KEY : String=""
     var PAGESIZE : Int=10
+    var ISLOADING : Boolean = false
      var dataList: MutableList<TodoEntity> = mutableListOf()
     val places: List<PlacesModel.Row> = listOf()
     @JvmStatic

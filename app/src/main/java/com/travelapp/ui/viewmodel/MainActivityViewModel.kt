@@ -33,7 +33,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         if (pageNumber == 1) {
             progressVisibility.value = true
         } else {
-            loaderVisibility.value = true
+           loaderVisibility.value = true
         }
 
         var jsonObj: JsonObject = JsonObject()
@@ -83,7 +83,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 if (pageNumber == 1) {
                     progressVisibility.value = false
                 } else {
-                    loaderVisibility.value = false
+                   loaderVisibility.value = false
                 }
                 //  Toast.makeText(context, t!!.message, Toast.LENGTH_SHORT).show()
             }

@@ -20,6 +20,7 @@ import com.travelapp.retrofit.PlacesModel
 import com.travelapp.ui.PlaceDetailActivity
 import com.travelapp.ui.adapter.PlacesAdaper
 import com.travelapp.ui.viewmodel.MainActivityViewModel
+import com.travelapp.utils.BindingAdapters.ISLOADING
 import com.travelapp.utils.BindingAdapters.PAGESIZE
 import com.travelapp.utils.BindingAdapters.PLACES_KEY
 import kotlinx.android.synthetic.main.fragment_places.*
@@ -112,7 +113,7 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
 
     fun initRecyclerView() {
 
-        adapter = PlacesAdaper(placesListRow, this)
+        adapter = PlacesAdaper(placesListRow,viewModel, this)
 
         binding.rvPlaces.adapter = adapter
         binding.rvPlaces.layoutManager = manager

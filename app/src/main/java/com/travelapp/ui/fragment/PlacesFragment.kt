@@ -20,6 +20,7 @@ import com.travelapp.R
 import com.travelapp.databinding.FragmentPlacesBinding
 import com.travelapp.retrofit.PlacesModel
 import com.travelapp.ui.PlaceDetailActivity
+import com.travelapp.ui.adapter.FooterAdapter
 import com.travelapp.ui.adapter.PagingAdapter
 import com.travelapp.ui.adapter.PlacesAdaper
 import com.travelapp.ui.viewmodel.MainActivityViewModel
@@ -80,24 +81,27 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
                 adapter.submitData(it)
             }
         }
-        adapter.addLoadStateListener {loadState ->
-            if (loadState.refresh == LoadState.Loading){
-                binding.progress.visibility = View.VISIBLE
-            }
-            else{
-                binding.progress.visibility = View.GONE
+        /*  adapter.addLoadStateListener {loadState ->
+              if (loadState.refresh == LoadState.Loading){
+                  binding.progress.visibility = View.VISIBLE
+              }
+              else{
+                  binding.progress.visibility = View.GONE
 
-                // getting the error
-                val error = when {
-                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
-                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-                    else -> null
-                }
+                  // getting the error
+                  val error = when {
+                      loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+                      loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                      loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+                      else -> null
+                  }
 
-            }
+              }
 
-        }
+          }*/
+        adapter.withLoadStateFooter(
+            FooterAdapter()
+        )
     }
 
     override fun onProductItemClicked(places: PlacesModel.Row) {

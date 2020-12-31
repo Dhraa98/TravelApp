@@ -8,7 +8,7 @@
 
         <variable
             name="viewmodel"
-            type="com.travelapp.ui.viewmodel.MainActivityViewModel" />
+            type="com.travelapp.ui.viewmodel.PlacesFragmentViewModel" />
     </data>
 
     <RelativeLayout
@@ -21,15 +21,25 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/progress"
             android:layoutAnimation="@anim/layout_animation_right_to_left" />
-
-        <com.facebook.shimmer.ShimmerFrameLayout
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/progress"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading" />
+       <!-- <com.facebook.shimmer.ShimmerFrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="@{viewmodel.progressVisibility ? View.VISIBLE : View.GONE}">
 
             <include layout="@layout/shimmer_layout" />
 
-        </com.facebook.shimmer.ShimmerFrameLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>-->
 
 
     </RelativeLayout>

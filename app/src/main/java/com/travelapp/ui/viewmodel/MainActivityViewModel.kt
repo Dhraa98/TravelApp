@@ -33,7 +33,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         if (pageNumber == 1) {
             progressVisibility.value = true
         } else {
-           loaderVisibility.value = true
+            loaderVisibility.value = true
         }
 
         var jsonObj: JsonObject = JsonObject()
@@ -46,7 +46,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         finalJson.add("paginationDto", jsonObj)
         finalJson.addProperty("searchType", "ACTIVITIES")
         finalJson.addProperty("sortBy", "NEAREST")
-        val call: Call<PlacesModel> =
+        /*val call: Call<PlacesModel> =
             RetrofitClass.getClient.getPlacesApi(finalJson)
 
         call.enqueue(object : Callback<PlacesModel> {
@@ -88,5 +88,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 //  Toast.makeText(context, t!!.message, Toast.LENGTH_SHORT).show()
             }
         })
+    }*/
     }
 }

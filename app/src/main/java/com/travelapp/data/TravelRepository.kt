@@ -15,14 +15,14 @@ import retrofit2.Response
 class TravelRepository {
     private val TAG = "TravelRepository"
     var dataValue: MutableLiveData<PlacesModel> = MutableLiveData()
-    fun getPlaces(
+   /* fun getPlaces(
         progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false),
-        pageNumber: Int,  loaderVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
+        pageNumber: Int, loaderVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
     ): LiveData<PlacesModel> {
         if (pageNumber == 1) {
             progressVisibility.value = true
-        }else{
-            loaderVisibility.value=true
+        } else {
+            loaderVisibility.value = true
         }
 
         var jsonObj: JsonObject = JsonObject()
@@ -35,7 +35,7 @@ class TravelRepository {
         finalJson.add("paginationDto", jsonObj)
         finalJson.addProperty("searchType", "ACTIVITIES")
         finalJson.addProperty("sortBy", "NEAREST")
-        val call: Call<PlacesModel> =
+        *//*val call: Call<PlacesModel> =
             RetrofitClass.getClient.getPlacesApi(finalJson)
 
         call.enqueue(object : Callback<PlacesModel> {
@@ -77,6 +77,7 @@ class TravelRepository {
                 //  Toast.makeText(context, t!!.message, Toast.LENGTH_SHORT).show()
             }
         })
-        return dataValue
-    }
+        return dataValue*//*
+    }*/
+
 }

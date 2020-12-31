@@ -30,7 +30,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{() ->  itemClick.onProductItemClicked(placesModel)}"
             android:orientation="vertical">
 
             <View
@@ -54,7 +53,6 @@
                     <ImageView
                         android:id="@+id/ivLocation"
 
-                        imageUrl="@{placesModel.images.get(0).imagePath }"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:scaleType="centerCrop" />
@@ -73,7 +71,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="2"
-                        android:text="@{placesModel.listingName }"
                         android:textSize="20sp" />
 
                     <RelativeLayout
@@ -86,7 +83,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_baseline_star_24"
-                            android:text="@{placesModel.avgRating }"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -95,7 +91,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="@{placesModel.minPrice}"
                             android:textSize="18sp"
                             android:textStyle="bold" />
                     </RelativeLayout>

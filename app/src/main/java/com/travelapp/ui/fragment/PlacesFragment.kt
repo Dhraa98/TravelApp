@@ -12,25 +12,31 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.travelapp.R
 import com.travelapp.databinding.FragmentPlacesBinding
 import com.travelapp.retrofit.PlacesModel
 import com.travelapp.ui.PlaceDetailActivity
+import com.travelapp.ui.adapter.PagingAdapter
 import com.travelapp.ui.adapter.PlacesAdaper
 import com.travelapp.ui.viewmodel.MainActivityViewModel
+import com.travelapp.ui.viewmodel.PlacesFragmentViewModel
 import com.travelapp.utils.BindingAdapters.ISLOADING
 import com.travelapp.utils.BindingAdapters.PAGESIZE
 import com.travelapp.utils.BindingAdapters.PLACES_KEY
 import kotlinx.android.synthetic.main.fragment_places.*
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 
 class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
     private val TAG = "PlacesFragment"
     private lateinit var binding: FragmentPlacesBinding
-    private lateinit var viewModel: MainActivityViewModel
-    private lateinit var adapter: PlacesAdaper
+    private lateinit var viewModel: PlacesFragmentViewModel
+    private lateinit var adapter: PagingAdapter
     private lateinit var manager: LinearLayoutManager
     var isLoading = true
     var isLastPage = false
@@ -44,10 +50,11 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_places, container, false)
-        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+
+        viewModel = ViewModelProvider(this).get(PlacesFragmentViewModel::class.java)
 
         binding.lifecycleOwner = activity
-        binding.viewmodel = viewModel
+        //  binding.viewmodel = viewModel
         manager = LinearLayoutManager(activity)
         initControls()
         return binding.root
@@ -55,68 +62,42 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
     }
 
     private fun initControls() {
-
-        addObserver()
-        viewModel.userData()
-
-
-        binding.rvPlaces.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val visibleItemCount = manager.childCount
-                val totalItemCount = manager.itemCount
-                val firstVisibleItemPosition = manager.findFirstVisibleItemPosition()
-                if (!isLastPage) {
-                    if (isLoading) {
-                        if (visibleItemCount + firstVisibleItemPosition >= totalItemCount) {
-
-                            isLoading = false
-                            viewModel.pageNumber++
-                            viewModel.userData()
-                            Log.e(TAG, "MATCH_PAGE_NUMBER: ${viewModel.pageNumber}")
-
-
-                        }
-                    }
-                }
-            }
-
-
-        })
+        initRecyclerView()
 
 
     }
 
-    private fun addObserver() {
-
-        viewModel.data.observe(activity!!, mObserver)
-    }
-
-    val mObserver = Observer<Any> {
-
-        isLoading = true
-
-        for (i in (it!! as PlacesModel)!!.rows!!.indices) {
-            placesListRow.add((it!! as PlacesModel).rows!![i])
-        }
-
-        if (viewModel.pageNumber == 1) {
-            initRecyclerView()
-        } else {
-            adapter!!.notifyDataSetChanged()
-        }
-
-        if ((it as PlacesModel)!!.rows!!.size < PAGESIZE) {
-            isLastPage = true
-        }
-    }
 
     fun initRecyclerView() {
 
-        adapter = PlacesAdaper(placesListRow,viewModel, this)
+        adapter = PagingAdapter()
+
 
         binding.rvPlaces.adapter = adapter
         binding.rvPlaces.layoutManager = manager
+        lifecycleScope.launch {
+            viewModel.listData.collectLatest {
+                adapter.submitData(it)
+            }
+        }
+        adapter.addLoadStateListener {loadState ->
+            if (loadState.refresh == LoadState.Loading){
+                binding.progress.visibility = View.VISIBLE
+            }
+            else{
+                binding.progress.visibility = View.GONE
+
+                // getting the error
+                val error = when {
+                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+                    else -> null
+                }
+
+            }
+
+        }
     }
 
     override fun onProductItemClicked(places: PlacesModel.Row) {
@@ -126,7 +107,6 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
             .makeSceneTransitionAnimation(activity!!, rvPlaces, "robot")
 
         startActivity(intent, options.toBundle())
-
 
 
     }

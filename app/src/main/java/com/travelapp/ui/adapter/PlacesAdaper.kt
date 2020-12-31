@@ -54,11 +54,6 @@ class PlacesAdaper(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as Item).bind(places[position],viewModel, mListener)
-        if(position.equals(places.size-1)){
-            holder.binding.progress.visibility = View.VISIBLE
-        }else{
-            holder.binding.progress.visibility = View.GONE
-        }
 
 
     }

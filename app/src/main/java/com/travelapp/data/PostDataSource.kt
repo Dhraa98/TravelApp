@@ -6,8 +6,8 @@ import com.networking.retrofit.RetrofitClass
 import com.travelapp.retrofit.PlacesModel
 import com.travelapp.utils.BindingAdapters
 
-class PostDataSource(private val apiService: RetrofitClass) : PagingSource<Int, PlacesModel>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PlacesModel> {
+class PostDataSource(private val apiService: RetrofitClass) : PagingSource<Int, PlacesModel.Row>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PlacesModel.Row> {
         try {
             val currentLoadingPageKey = params.key ?: 1
             var jsonObj: JsonObject = JsonObject()
@@ -21,11 +21,11 @@ class PostDataSource(private val apiService: RetrofitClass) : PagingSource<Int, 
             finalJson.addProperty("searchType", "ACTIVITIES")
             finalJson.addProperty("sortBy", "NEAREST")
             val response = apiService.getClient.getPlacesApi(finalJson)
-            val responseData = mutableListOf<PlacesModel>()
-            val data = response.body()
-            responseData.add(data!!)
+            val responseData = mutableListOf<PlacesModel.Row>()
+            val data = response.body()!!.rows
+            responseData.addAll(data!!)
 
-            val prevKey = if (currentLoadingPageKey == 1) null else currentLoadingPageKey - 1
+          val prevKey = if (currentLoadingPageKey == 1) null else currentLoadingPageKey - 1
 
             return LoadResult.Page(
                 data = responseData,

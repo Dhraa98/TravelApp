@@ -32,14 +32,7 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/loading" />
-       <!-- <com.facebook.shimmer.ShimmerFrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="@{viewmodel.progressVisibility ? View.VISIBLE : View.GONE}">
 
-            <include layout="@layout/shimmer_layout" />
-
-        </com.facebook.shimmer.ShimmerFrameLayout>-->
 
 
     </RelativeLayout>

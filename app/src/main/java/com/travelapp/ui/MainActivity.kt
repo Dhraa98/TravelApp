@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.frm_contain, placesFragment)
                         .commit()
-                    // Respond to navigation item 1 click
+
                     true
                 }
                 R.id.page_2 -> {
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.frm_contain, favouritesFragment)
                         .commit()
-                    // Respond to navigation item 2 click
+
                     true
                 }
                 else -> false

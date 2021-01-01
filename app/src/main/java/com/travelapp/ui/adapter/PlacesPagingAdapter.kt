@@ -9,43 +9,30 @@ import coil.load
 import com.travelapp.databinding.ItemAdapterListBinding
 import com.travelapp.retrofit.PlacesModel
 
-class UserPagingAdapter : PagingDataAdapter<PlacesModel.Row, UserPagingAdapter.ViewHolder>(DataDifferntiator) {
-    class ViewHolder(var binding: ItemAdapterListBinding) : RecyclerView.ViewHolder(binding.root) /*{
-        fun bind(placesList: PlacesModel.Row) {
-
-            binding.placesModel = placesList
-           // binding.itemClick = listener
-           // binding.viewmodel = viewModel
-            binding.executePendingBindings()
-
-
-        }
-    }*/
-
-    override fun onBindViewHolder(holder: UserPagingAdapter.ViewHolder, position: Int) {
+class PlacesPagingAdapter : PagingDataAdapter<PlacesModel.Row, PlacesPagingAdapter.ViewHolder>(DataDifferntiator) {
+    class ViewHolder(var binding: ItemAdapterListBinding) : RecyclerView.ViewHolder(binding.root)
+    override fun onBindViewHolder(holder: PlacesPagingAdapter.ViewHolder, position: Int) {
 
 
         getItem(position).let {
 
 
-                holder.binding.tvPrice.text= getItem(position)!!.minPrice
-                holder.binding.ivLocation.load(getItem(position)!!.images!![0].imagePath) {
+                holder.binding.tvPrice.text= getItem(position)?.minPrice
+                holder.binding.ivLocation.load(getItem(position)?.images?.get(0)?.imagePath) {
                     crossfade(true)
 
                 }
-                holder.binding.tvLocationName.text=getItem(position)!!.listingName
-                holder.binding.tvRating.text=getItem(position)!!.avgRating
+                holder.binding.tvLocationName.text=getItem(position)?.listingName
+                holder.binding.tvRating.text=getItem(position)?.avgRating
 
 
         }
 
-       /* val places : PlacesModel.Row = getItem(0)!!.rows!![position]!!
-        holder.bind(places)*/
 
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserPagingAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlacesPagingAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemAdapterListBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)

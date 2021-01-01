@@ -14,7 +14,7 @@ import retrofit2.http.Query
 interface RetrofitInterface {
 
 
-    //get Videos
+    //get Places
     @POST("search")
     suspend fun getPlacesApi(
         @Body

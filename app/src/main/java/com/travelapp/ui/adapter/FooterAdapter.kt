@@ -18,7 +18,7 @@ class FooterAdapter : LoadStateAdapter<FooterAdapter.ViewHolder>()  {
         if (loadState == LoadState.Loading) {
            holder.bindig.progress.visibility=View.VISIBLE
         } else {
-        //h
+
             holder.bindig.progress.visibility=View.GONE
         }
 

@@ -4,18 +4,7 @@
     <data>
         <import type="android.view.View" />
 
-        <variable
 
-            name="viewmodel"
-            type="com.travelapp.ui.viewmodel.MainActivityViewModel" />
-        <variable
-            name="placesModel"
-            type="com.travelapp.retrofit.PlacesModel.Row" />
-
-
-        <variable
-            name="itemClick"
-            type="com.travelapp.ui.adapter.PlacesAdaper.ProductItemClickListener" />
     </data>
 
     <com.balysv.materialripple.MaterialRippleLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -108,7 +97,6 @@
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/loading" />
         </LinearLayout>
-       <!-- android:visibility="@{viewmodel.loaderVisibility ? View.VISIBLE : View.GONE}"-->
-        <!--    android:transitionName="robot"-->
+
     </com.balysv.materialripple.MaterialRippleLayout>
 </layout>

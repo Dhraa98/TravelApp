@@ -22,7 +22,7 @@ class PostDataSource(private val apiService: RetrofitClass) : PagingSource<Int, 
             finalJson.addProperty("sortBy", "NEAREST")
             val response = apiService.getClient.getPlacesApi(finalJson)
             val responseData = mutableListOf<PlacesModel.Row>()
-            val data = response.body()!!.rows
+            val data = response.body()?.rows
             responseData.addAll(data!!)
 
           val prevKey = if (currentLoadingPageKey == 1) null else currentLoadingPageKey - 1

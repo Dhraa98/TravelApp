@@ -41,7 +41,7 @@ class FavouritesAdaper(
 
             holder.bind(dataList[position])
 
-       // holder.bind(places[position], mListener)
+
 
 
 }

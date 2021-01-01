@@ -47,31 +47,6 @@ class MainActivity : AppCompatActivity() {
                 binding.navigation.visibility=View.GONE
             }
         }
-        /*var placesFragment: PlacesFragment = PlacesFragment()
-        supportFragmentManager.beginTransaction()
-            .add(R.id.frm_contain, placesFragment)
-            .commit()
 
-        navigation.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.page_1 -> {
-                    var placesFragment: PlacesFragment = PlacesFragment()
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.frm_contain, placesFragment)
-                        .commit()
-                    // Respond to navigation item 1 click
-                    true
-                }
-                R.id.page_2 -> {
-                    var favouritesFragment: FavouritesFragment = FavouritesFragment()
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.frm_contain, favouritesFragment)
-                        .commit()
-                    // Respond to navigation item 2 click
-                    true
-                }
-                else -> false
-            }
-        }*/
     }
 }

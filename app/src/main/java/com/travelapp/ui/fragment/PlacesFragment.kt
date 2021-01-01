@@ -44,7 +44,7 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
 
         viewModel.userData.observe(requireActivity(), Observer {
             val places: List<PlacesModel.Row> =
-                it!!.rows!!
+                it?.rows!!
 
             adapter = PlacesAdaper(places, this)
             manager = LinearLayoutManager(activity)
@@ -52,25 +52,10 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
             binding.rvPlaces.layoutManager = manager
             runAnimationAgain()
         })
-        /* binding.rvPlaces.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
 
-                 super.onScrollStateChanged(recyclerView, newState)
-             }
-         })*/
     }
 
     override fun onProductItemClicked(places: PlacesModel.Row) {
-        /*val intent = Intent(requireContext(), PlaceDetailActivity::class.java)
-        intent.putExtra(PLACES_KEY, places)
-        // startActivity(intent)
-        val options = ActivityOptions
-            .makeSceneTransitionAnimation(requireActivity(), rvPlaces, "robot")
-        // start the new activity
-        //startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity!!).toBundle())
-        startActivity(intent, options.toBundle())*/
-        /* startActivity(intent)
-         activity!!.overridePendingTransition(0,0)*/
 
         val action = PlacesFragmentDirections.actionPlacesFragmentToPlaceDetailActivity(places)
         val navController =
@@ -87,7 +72,7 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
                 R.anim.layout_animation_right_to_left
             )
         binding.rvPlaces.setLayoutAnimation(controller)
-        binding.rvPlaces.adapter!!.notifyDataSetChanged()
+        binding.rvPlaces.adapter?.notifyDataSetChanged()
         binding.rvPlaces.scheduleLayoutAnimation()
     }
 

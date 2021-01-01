@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.travelapp.R
@@ -48,35 +49,27 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
 
     private fun initControls() {
 
-        viewModel.userData.observe(activity!!, Observer {
-            val places: List<PlacesModel.Row> =
-                it!!.rows!!
+        activity?.let {
+            viewModel.userData.observe(it, Observer {
+                val places: List<PlacesModel.Row> =
+                    it?.rows!!
 
-            adapter = PlacesAdaper(places, this)
-            manager = LinearLayoutManager(activity)
-            binding.rvPlaces.adapter = adapter
-            binding.rvPlaces.layoutManager = manager
-            runAnimationAgain()
-        })
-        /* binding.rvPlaces.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                adapter = PlacesAdaper(places, this)
+                manager = LinearLayoutManager(activity)
+                binding.rvPlaces.adapter = adapter
+                binding.rvPlaces.layoutManager = manager
+                runAnimationAgain()
+            })
+        }
 
-                 super.onScrollStateChanged(recyclerView, newState)
-             }
-         })*/
     }
 
     override fun onProductItemClicked(places: PlacesModel.Row) {
-        val intent = Intent(activity!!, PlaceDetailActivity::class.java)
+        val intent = Intent(activity, PlaceDetailActivity::class.java)
         intent.putExtra(PLACES_KEY, places)
-        // startActivity(intent)
         val options = ActivityOptions
-            .makeSceneTransitionAnimation(activity!!, rvPlaces, "robot")
-        // start the new activity
-        //startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity!!).toBundle())
+            .makeSceneTransitionAnimation(activity, rvPlaces, "robot")
         startActivity(intent, options.toBundle())
-       /* startActivity(intent)
-        activity!!.overridePendingTransition(0,0)*/
 
 
 
@@ -84,9 +77,9 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
 
     private fun runAnimationAgain() {
         val controller =
-            AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_right_to_left)
+            AnimationUtils.loadLayoutAnimation(activity, R.anim.layout_animation_right_to_left)
         binding.rvPlaces.setLayoutAnimation(controller)
-        binding.rvPlaces.adapter!!.notifyDataSetChanged()
+        binding.rvPlaces.adapter?.notifyDataSetChanged()
         binding.rvPlaces.scheduleLayoutAnimation()
     }
 

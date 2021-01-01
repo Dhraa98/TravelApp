@@ -1,6 +1,6 @@
 package com.travelapp.data
 
-import android.util.Log
+
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +10,7 @@ import com.travelapp.retrofit.PlacesModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 
 class TravelRepository {
     private  val TAG = "TravelRepository"
@@ -38,18 +39,18 @@ class TravelRepository {
                 if (response!!.isSuccessful) {
 
 
-                    if (response.body()!!.apiStatus.equals("Success")) {
-                        if (response.body()!!.rows!!.size > 0) {
+                    if (response.body()?.apiStatus.equals("Success")) {
+                        if (response.body()?.rows!!.size > 0) {
                             dataValue.value = response.body()
 
                         }else{
-                            Log.e(TAG, "onResponse: " )
+                            Timber.e(TAG, "onResponse: " )
                         }
                     }else{
-                        Log.e(TAG, "onResponse: " )
+                        Timber.e(TAG, "onResponse: " )
                     }
                 }else{
-                    Log.e(TAG, "onResponse:  "+response.message() )
+                    Timber.e(TAG, "onResponse:  "+response.message() )
                 }
                 progressVisibility.value = false
 
@@ -57,7 +58,7 @@ class TravelRepository {
 
             override fun onFailure(call: Call<PlacesModel>?, t: Throwable?) {
                 progressVisibility.value = false
-                //  Toast.makeText(context, t!!.message, Toast.LENGTH_SHORT).show()
+
             }
         })
         return dataValue

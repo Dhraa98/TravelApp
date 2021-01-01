@@ -39,11 +39,13 @@ class FavouritesFragment : Fragment() {
 
     private fun initControls() {
         dataList.clear()
-        TodoRoomDatabase.getDatabase(activity!!).todoDao().getAll().forEach()
-        {
-            dataList.addAll(listOf(it))
-            Log.i("Fetch Records", "Id:  : ${it.Id}")
-            Log.i("Fetch Records", "Name:  : ${it.listingName}")
+        activity?.let {
+            TodoRoomDatabase.getDatabase(it).todoDao().getAll().forEach()
+            {
+                dataList.addAll(listOf(it))
+                Log.i("Fetch Records", "Id:  : ${it.Id}")
+                Log.i("Fetch Records", "Name:  : ${it.listingName}")
+            }
         }
         binding.progress.visibility = View.GONE
         adapter = FavouritesAdaper(dataList)

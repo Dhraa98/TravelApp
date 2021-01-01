@@ -1,23 +1,21 @@
 package com.travelapp.ui.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonObject
 import com.networking.retrofit.RetrofitClass
-import com.travelapp.data.TravelRepository
 import com.travelapp.retrofit.PlacesModel
 import com.travelapp.utils.BindingAdapters
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
     private val TAG = "MainActivityViewModel"
     var pageNumber = 1
-    val userRepository = TravelRepository()
+
     var progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
     var loaderVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
     var data: MutableLiveData<PlacesModel> = MutableLiveData<PlacesModel>()
@@ -58,18 +56,18 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 if (response!!.isSuccessful) {
 
 
-                    if (response.body()!!.apiStatus.equals("Success")) {
-                        if (response.body()!!.rows!!.size > 0) {
+                    if (response.body()?.apiStatus.equals("Success")) {
+                        if (response.body()?.rows!!.size > 0) {
                             data.value = response.body()
 
                         } else {
-                            Log.e(TAG, "onResponse: ")
+                            Timber.e(TAG, "onResponse: ")
                         }
                     } else {
-                        Log.e(TAG, "onResponse: ")
+                        Timber.e(TAG, "onResponse: ")
                     }
                 } else {
-                    Log.e(TAG, "onResponse:  " + response.message())
+                    Timber.e(TAG, "onResponse:  " + response.message())
                 }
                 if (pageNumber == 1) {
                     progressVisibility.value = false
@@ -85,7 +83,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 } else {
                    loaderVisibility.value = false
                 }
-                //  Toast.makeText(context, t!!.message, Toast.LENGTH_SHORT).show()
+
             }
         })
     }

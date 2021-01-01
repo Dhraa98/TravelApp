@@ -3,11 +3,8 @@ package com.travelapp.ui.fragment
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
 import android.view.*
-import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,10 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.travelapp.R
 import com.travelapp.databinding.FragmentPlacesBinding
 import com.travelapp.retrofit.PlacesModel
-import com.travelapp.ui.PlaceDetailActivity
 import com.travelapp.ui.adapter.PlacesAdaper
 import com.travelapp.ui.viewmodel.MainActivityViewModel
-import com.travelapp.utils.BindingAdapters.ISLOADING
 import com.travelapp.utils.BindingAdapters.PAGESIZE
 import com.travelapp.utils.BindingAdapters.PLACES_KEY
 import kotlinx.android.synthetic.main.fragment_places.*
@@ -89,24 +84,24 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
 
     private fun addObserver() {
 
-        viewModel.data.observe(activity!!, mObserver)
+        activity?.let { viewModel.data.observe(it, mObserver) }
     }
 
     val mObserver = Observer<Any> {
 
         isLoading = true
 
-        for (i in (it!! as PlacesModel)!!.rows!!.indices) {
-            placesListRow.add((it!! as PlacesModel).rows!![i])
+        for (i in (it!! as PlacesModel).rows!!.indices) {
+            placesListRow.add((it as PlacesModel).rows!![i])
         }
 
         if (viewModel.pageNumber == 1) {
             initRecyclerView()
         } else {
-            adapter!!.notifyDataSetChanged()
+            adapter.notifyDataSetChanged()
         }
 
-        if ((it as PlacesModel)!!.rows!!.size < PAGESIZE) {
+        if ((it as PlacesModel).rows?.size!! < PAGESIZE) {
             isLastPage = true
         }
     }
@@ -120,23 +115,8 @@ class PlacesFragment : Fragment(), PlacesAdaper.ProductItemClickListener {
     }
 
     override fun onProductItemClicked(places: PlacesModel.Row) {
-        val intent = Intent(activity!!, PlaceDetailActivity::class.java)
-        intent.putExtra(PLACES_KEY, places)
-        val options = ActivityOptions
-            .makeSceneTransitionAnimation(activity!!, rvPlaces, "robot")
-
-        startActivity(intent, options.toBundle())
 
 
-
-    }
-
-    private fun runAnimationAgain() {
-        val controller =
-            AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_right_to_left)
-        binding.rvPlaces.setLayoutAnimation(controller)
-        binding.rvPlaces.adapter!!.notifyDataSetChanged()
-        binding.rvPlaces.scheduleLayoutAnimation()
     }
 
 

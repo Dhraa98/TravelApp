@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.travelapp.database.TodoEntity
+
 import com.travelapp.databinding.ItemAdapterListBinding
 
 import com.travelapp.retrofit.PlacesModel
@@ -64,7 +64,7 @@ class PlacesAdaper(
     }
 
 
-// holder.bind(places[position], mListener)
+
 
     interface ProductItemClickListener {
         fun onProductItemClicked(places: PlacesModel.Row)
